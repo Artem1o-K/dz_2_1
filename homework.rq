@@ -1,0 +1,51 @@
+PREFIX imdb: <http://academy.ontotext.com/imdb/>
+PREFIX schema: <http://schema.org/>
+
+# 1. Фильмы, у которых имя режиссера начинается с буквы "C"
+SELECT ?movie ?movieName ?directorName
+WHERE {
+  ?movie schema:name ?movieName ;
+         schema:director ?director .
+  ?director schema:name ?directorName .
+  
+  FILTER STRSTARTS(?directorName, "C")
+}
+ORDER BY ?directorName
+
+# 2. Фильмы с участием актера "Leonardo DiCaprio"
+SELECT ?movie ?movieName
+WHERE {
+  ?movie schema:name ?movieName ;
+         schema:actor ?actor .
+  ?actor schema:name "Leonardo DiCaprio" .
+}
+ORDER BY ?movieName
+
+# 3. Фильмы, в которых снимались оба актера "Will Smith" и "Tommy Lee Jones"
+SELECT ?movie ?movieName
+WHERE {
+  ?movie schema:name ?movieName ;
+         schema:actor ?actor1 ;
+         schema:actor ?actor2 .
+  ?actor1 schema:name "Will Smith" .
+  ?actor2 schema:name "Tommy Lee Jones" .
+}
+ORDER BY ?movieName
+
+# 4. Фильмы, в которых участвовал "Bruce Willis"
+SELECT ?movie ?movieName
+WHERE {
+  ?movie schema:name ?movieName ;
+         schema:actor ?actor .
+  ?actor schema:name "Bruce Willis" .
+}
+ORDER BY ?movieName
+
+# 5. Фильмы, снятые режиссером "Christopher Nolan"
+SELECT ?movie ?movieName
+WHERE {
+  ?movie schema:name ?movieName ;
+         schema:director ?director .
+  ?director schema:name "Christopher Nolan" .
+}
+ORDER BY ?movieName
